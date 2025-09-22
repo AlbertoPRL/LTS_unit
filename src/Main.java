@@ -1,0 +1,70 @@
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scnr = new Scanner(System.in);
+        String choice;
+        LTS unit1 = new LTS();
+
+        System.out.println("Lunar transport system control \n");
+
+        do {
+            System.out.println("Main menu:");
+            System.out.println("1. Get Manufacturer");
+            System.out.println("2. Get Fuel Mass");
+            System.out.println("3. Get Cargo Mass");
+            System.out.println("4. Current Mission Time");
+            System.out.println("5. Get Dry Mass");
+            System.out.println("6. Get gross Mass");
+            System.out.println("7. Get unit ID");
+            System.out.println("8. Get Date manufactured");
+            System.out.println("9. Set Manufacturer");
+            System.out.println("10. Set Fuel Mass ");
+            System.out.println("11. Set Cargo Mass");
+            System.out.println("12. Increase Mission Time");
+            System.out.println("13. Deploy Cargo");
+            System.out.println("14. Exit");
+            choice = scnr.nextLine();
+
+            switch (choice){
+                case "1" -> System.out.format("Manufacturer: %s \n", unit1.getManufacturer());
+                case "2" -> System.out.format("Fuel Mass: %.2f \n", unit1.getFuelMass());
+                case "3" -> System.out.format("Cargo Mass: %.2f \n", unit1.getCargoMass());
+                case "4" -> System.out.format("Current mission time: %d seconds \n", unit1.getMissionTime());
+                case "5" -> System.out.format("Dry Mass: %.2f \n", unit1.getDryMass());
+                case "6" -> System.out.format("Gross Mass: %.2f \n", unit1.getGrossMass());
+                case "7" -> System.out.format("Unit ID: %d \n", unit1.getLtsID());
+                case "8" -> System.out.format("Date manufactured: %TD \n", unit1.getDateManufactured());
+                case "9" -> {
+                    System.out.println("Introduce new Manufacturer");
+                    String input = scnr.nextLine();
+                    unit1.setManufacturer(input);
+                }
+                case "10" -> unit1.setFuelMass(readDouble(scnr, "Introduce new Fuel Mass"));
+                case "11" -> unit1.setCargoMass(readDouble(scnr, "Introduce new Cargo Mass"));
+                case "12" -> unit1.increaseMissionTime();
+                case "13" -> unit1.deployCargo();
+                case "14" -> System.out.println("Exiting LTS unit control");
+                default -> System.out.println("Invalid Choice");
+            }
+        } while (!choice.equals("14"));
+    }
+
+
+    //Helper Method Reads and validate double from input
+    public static double readDouble(Scanner scnr, String prompt){
+        double value;
+        while (true) {
+            System.out.println(prompt);
+            try {
+                value = scnr.nextDouble();
+                scnr.nextLine();
+                return value;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scnr.nextLine();
+            }
+        }
+    }
+}
