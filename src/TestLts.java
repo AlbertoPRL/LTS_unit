@@ -41,7 +41,8 @@ public class TestLts {
         //Testing DateManufactured getter
         System.out.printf("Date manufactured mm/dd/yy: %tD \n\n", unit1.getDateManufactured());
 
-        //Testing mission time getter and increasing mission time until fuel is exhausted
+        //Testing mission time getter, increasing mission time until fuel is exhausted and testing to deploy cargo
+        System.out.println("Testing dropping cargo before the ship reaches orbit.");
         System.out.printf("Current mission time: %d \n", unit1.getMissionTime());
         for(int i = 0; i < 20; i++){
             unit1.increaseMissionTime();
@@ -51,6 +52,7 @@ public class TestLts {
         for(int i = 0; i < 20; i++){
             unit1.increaseMissionTime();
         }
+        System.out.println("Testing dropping cargo after 200 seconds");
         System.out.printf("Current mission time: %d \n", unit1.getMissionTime());
         unit1.deployCargo();
         System.out.println();
