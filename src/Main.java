@@ -1,70 +1,65 @@
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scnr = new Scanner(System.in);
-        String choice;
         LTS unit1 = new LTS();
+        LTS unit2;
 
-        System.out.println("Lunar transport system control \n");
+        System.out.println("Testing unit1 (with no argument constructor) \n");
 
-        do {
-            System.out.println("Main menu:");
-            System.out.println("1. Get Manufacturer");
-            System.out.println("2. Get Fuel Mass");
-            System.out.println("3. Get Cargo Mass");
-            System.out.println("4. Current Mission Time");
-            System.out.println("5. Get Dry Mass");
-            System.out.println("6. Get gross Mass");
-            System.out.println("7. Get unit ID");
-            System.out.println("8. Get Date manufactured");
-            System.out.println("9. Set Manufacturer");
-            System.out.println("10. Set Fuel Mass ");
-            System.out.println("11. Set Cargo Mass");
-            System.out.println("12. Increase Mission Time");
-            System.out.println("13. Deploy Cargo");
-            System.out.println("14. Exit");
-            choice = scnr.nextLine();
+        //Testing manufacturer getter and setter
+        System.out.printf("Manufacturer: %s \n", unit1.getManufacturer());
+        System.out.println("Changing Manufacturer with empty string: ");
+        unit1.setManufacturer("");
+        System.out.println("Changing Manufacturer with valid string: 'Nasa' ");
+        unit1.setManufacturer("Nasa \n");
 
-            switch (choice){
-                case "1" -> System.out.format("Manufacturer: %s \n", unit1.getManufacturer());
-                case "2" -> System.out.format("Fuel Mass: %.2f \n", unit1.getFuelMass());
-                case "3" -> System.out.format("Cargo Mass: %.2f \n", unit1.getCargoMass());
-                case "4" -> System.out.format("Current mission time: %d seconds \n", unit1.getMissionTime());
-                case "5" -> System.out.format("Dry Mass: %.2f \n", unit1.getDryMass());
-                case "6" -> System.out.format("Gross Mass: %.2f \n", unit1.getGrossMass());
-                case "7" -> System.out.format("Unit ID: %d \n", unit1.getLtsID());
-                case "8" -> System.out.format("Date manufactured: %TD \n", unit1.getDateManufactured());
-                case "9" -> {
-                    System.out.println("Introduce new Manufacturer");
-                    String input = scnr.nextLine();
-                    unit1.setManufacturer(input);
-                }
-                case "10" -> unit1.setFuelMass(readDouble(scnr, "Introduce new Fuel Mass"));
-                case "11" -> unit1.setCargoMass(readDouble(scnr, "Introduce new Cargo Mass"));
-                case "12" -> unit1.increaseMissionTime();
-                case "13" -> unit1.deployCargo();
-                case "14" -> System.out.println("Exiting LTS unit control");
-                default -> System.out.println("Invalid Choice");
-            }
-        } while (!choice.equals("14"));
-    }
+        //Testing fuel mass getter and setter
+        System.out.printf("Fuel Mass: %.2f \n",unit1.getFuelMass());
+        System.out.println("Changing fuel mass with a negative value: -100");
+        unit1.setFuelMass(-100);
+        System.out.println("Changing fuel mass with a valid value: 100");
+        unit1.setFuelMass(100);
+        System.out.println();
 
+        //Testing cargo mass getter and setter
+        System.out.printf("Cargo Mass: %.2f \n", unit1.getCargoMass());
+        System.out.println("Changing cargo mass with a negative value: -100");
+        unit1.setCargoMass(-100);
+        System.out.println("Changing cargo mass with a valid value: 100");
+        unit1.setCargoMass(100);
+        System.out.println();
 
-    //Helper Method Reads and validate double from input
-    public static double readDouble(Scanner scnr, String prompt){
-        double value;
-        while (true) {
-            System.out.println(prompt);
-            try {
-                value = scnr.nextDouble();
-                scnr.nextLine();
-                return value;
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                scnr.nextLine();
-            }
+        //Testing dry mass getter
+        System.out.printf("Dry mass: %.2f \n\n", unit1.getDryMass());
+
+        //Testing gross mass getter
+        System.out.printf("Gross mass: %.2f \n\n", unit1.getGrossMass());
+
+        //Testing ltsId getter
+        System.out.printf("Unit 1 id: %d \n\n", unit1.getLtsID());
+
+        //Testing DateManufactured getter
+        System.out.printf("Date manufactured mm/dd/yy: %tD \n\n", unit1.getDateManufactured());
+
+        //Testing mission time getter and increasing mission time until fuel is exhausted
+        System.out.printf("Current mission time: %d \n", unit1.getMissionTime());
+        for(int i = 0; i < 20; i++){
+            unit1.increaseMissionTime();
         }
+        System.out.printf("Current mission time: %d \n", unit1.getMissionTime() );
+        unit1.deployCargo();
+        for(int i = 0; i < 20; i++){
+            unit1.increaseMissionTime();
+        }
+        System.out.printf("Current mission time: %d \n", unit1.getMissionTime());
+        unit1.deployCargo();
+        System.out.println();
+
+        //Testing LTS creation with invalid values
+        System.out.println("Creating LTS with 2 arguments constructor (invalid values)");
+        unit2 = new LTS(-100,-100);
+        System.out.printf("Unit 2 fuel mass: %.2f \n", unit2.getFuelMass());
+        System.out.printf("Unit 2 cargo mass: %.2f \n", unit2.getCargoMass());
+
     }
 }

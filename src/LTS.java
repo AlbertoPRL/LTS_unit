@@ -80,6 +80,7 @@ public class LTS {
     public void setManufacturer(String manufacturer){
         if(manufacturer != null && !manufacturer.isEmpty()){ // Checks input
             this.manufacturer = manufacturer;
+            System.out.printf("Manufacturer changed to: %s \n", manufacturer);
         } else {
             System.out.println("Error: Manufacturer name empty");
         }
@@ -97,6 +98,7 @@ public class LTS {
         this.fuelMass = fuelMass;
         burn = fuelMass * 0.01;
         updateGross();
+        System.out.printf("Fuel mass changed to %.2f \n", fuelMass);
     }
 
     public void setCargoMass(double cargoMass){
@@ -106,30 +108,26 @@ public class LTS {
         }
         this.cargoMass = cargoMass;
         updateGross();
+        System.out.printf("Cargo mass changed to: %.2f \n", cargoMass);
     }
 
     //  Method for increasedMissionTime. Will increase mission time up to 5 seconds if possible
     public void increaseMissionTime() {
-        int secondsFlown = 0;
-        for(int i = 0; i < 5; i++){
-            if(fuelMass < burn){
-                System.out.println("We ran out of fuel in the outer space"); // checker for fuel going empty if fuel mass-burn is negative
-                break;
-            }
-            else {
-                secondsFlown++;
-                fuelMass -= burn;
-            }
+        if(fuelMass >= burn){
+            fuelMass -= burn;
         }
-        missionTime += secondsFlown; // Increase mission time by the actual number of seconds flown (up to 5)
+        if(missionTime < 200) {
+            missionTime += 5; // Increase mission time by the actual number of seconds flown (up to 5)
+        }
         updateGross();
     }
 
     //  Method for deployCargo
     public void deployCargo(){
         if (missionTime < 200){ // checks if mission time is less than 200
-            System.out.println("Error: Wait "+ (200 - missionTime) + " seconds."); //Invalid Check (Mission time under 200)
-        } else {
+            System.out.println("Error, mission time should be 200 to deploy cargo: Wait "+ (200 - missionTime) + " seconds. \n");
+        }
+        else {
             cargoMass = 0;  //  cargo mass changes to 0 as launch was deployed.
             updateGross();
             System.out.println("Cargo was deployed into space!");
