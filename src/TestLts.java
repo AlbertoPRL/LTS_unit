@@ -1,5 +1,5 @@
 
-public class Main {
+public class TestLts {
     public static void main(String[] args) {
         LTS unit1 = new LTS();
         LTS unit2;

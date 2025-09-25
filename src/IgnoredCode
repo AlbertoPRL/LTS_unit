@@ -1,7 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Main {
+public class TestLts {
     public static void main(String[] args) {
         Scanner scnr = new Scanner(System.in);
         String choice;
@@ -10,7 +10,7 @@ public class Main {
         System.out.println("Lunar transport system control \n");
 
         do {
-            System.out.println("Main menu:");
+            System.out.println("TestLts menu:");
             System.out.println("1. Get Manufacturer");
             System.out.println("2. Get Fuel Mass");
             System.out.println("3. Get Cargo Mass");
