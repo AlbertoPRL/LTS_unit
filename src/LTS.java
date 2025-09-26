@@ -14,7 +14,7 @@ public class LTS {
 
     public LTS() {
         burn = fuelMass * 0.01;
-        randomID();  // Initializes LTS unit with default values
+        randomID();
         updateGross(); // Recalculating Gross Mass
     }
 
