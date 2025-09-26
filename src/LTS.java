@@ -12,13 +12,13 @@ public class LTS {
     private double burn; //Represents the constant amount of fuel consumed per second (1% of the initial fuel mass)
     private String manufacturer = "Celestial Transport Technologies"; // Storing the name of the company that built the LTS (DEFAULT : " Celestial Transport Technologies") 1 MANUFACTURER ONLY
 
-    public LTS() {  // No-argument constructor
+    public LTS() {
         burn = fuelMass * 0.01;
         randomID();  // Initializes LTS unit with default values
         updateGross(); // Recalculating Gross Mass
     }
 
-    public LTS(double fuelMass, double cargoMass){ //Creates LTS unit with fuel and cargo mass parameter.
+    public LTS(double fuelMass, double cargoMass){
         if(fuelMass < 0){
             System.out.println("Error: Fuel Mass input invalid. Using Default");
         } else {
@@ -37,7 +37,7 @@ public class LTS {
 
     private void randomID(){ // Helper Method for random ID
         Random rand = new Random();
-        this.ltsId = 100000 + rand.nextInt(900000); // For 6 digit Random ltsID
+        this.ltsId = 100000 + rand.nextInt(900000);
     }
 
     private void updateGross(){  //Helper Method for recalculating gross mass
@@ -78,7 +78,7 @@ public class LTS {
     }
 
     public void setManufacturer(String manufacturer){
-        if(manufacturer != null && !manufacturer.isEmpty()){ // Checks input
+        if(manufacturer != null && !manufacturer.isEmpty()){
             this.manufacturer = manufacturer;
             System.out.printf("Manufacturer changed to: %s \n", manufacturer);
         } else {
@@ -111,20 +111,18 @@ public class LTS {
         System.out.printf("Cargo mass changed to: %.2f \n", cargoMass);
     }
 
-    //  Method for increasedMissionTime. Will increase mission time up to 5 seconds if possible
     public void increaseMissionTime() {
         if(fuelMass >= burn){
             fuelMass -= burn;
         }
         if(missionTime < 200) {
-            missionTime += 5; // Increase mission time by the actual number of seconds flown (up to 5)
+            missionTime += 5;
         }
         updateGross();
     }
 
-    //  Method for deployCargo
     public void deployCargo(){
-        if (missionTime < 200){ // checks if mission time is less than 200
+        if (missionTime < 200){
             System.out.println("Error, mission time should be 200 to deploy cargo: Wait "+ (200 - missionTime) + " seconds. \n");
         }
         else {
